@@ -55,13 +55,13 @@ exports.ComponentC = require('./ComponentC')
 
 这样，我们只需要使用 webpack 的 require.ensure 特殊语法或者使用 AMD 风格的 callback-require 语法异步加载 CommonComponents 目录下的 index.js，在使用 webpack 进行打包时，就可以实现将 ComponentA、ComponentB、ComponentC 这三个组件合并打包。以 AMD 风格的 callback-require 语法为例示范如下，这里的 callback 回调函数的形式没有任何特殊要求。
 ```javascript
-require(['component/CommonComponents'], function (CommonComponents) {
+require(['components/CommonComponents'], function (CommonComponents) {
   // do whatever you want with CommonComponents
 })
 ```
-component/CommonComponents 模块加载成功时，这里的回调函数中的 CommonComponents 参数将会是一个包含 ComponentA、ComponentB、ComponentC 这三个组件选项的对象。
+components/CommonComponents 模块加载成功时，这里的回调函数中的 CommonComponents 参数将会是一个包含 ComponentA、ComponentB、ComponentC 这三个组件选项的对象。
 
-在定义异步解析组件时，我们使用的是一个工厂函数 `resolve => {require(['./my-async-component'], resolve)}`，如果需要在路由配置文件中添加 component 属性为 ComponentA 组件的路由项，应该定义什么什么样的工厂函数呢？记住这里的 resolve 是一个用于解析组件选项的回调函数，其参数是所获取的组件选项，而上一段代码中的 CommonComponents 恰好是包含若干个组件选项的对象，因此我们可以将 CommonComponents 的子属性作为参数用于 resolve 调用，我们编写一个函数 getCommonComponent，用于根据组件名称获取相应的组件选项。
+在定义异步组件时，我们使用的是一个工厂函数 `resolve => {require(['./my-async-component'], resolve)}`，如果需要在路由配置文件中添加 component 属性为 ComponentA 组件的路由项，应该定义什么什么样的工厂函数呢？记住这里的 resolve 是一个用于解析组件选项的回调函数，其参数是所获取的组件选项，而上一段代码中的 CommonComponents 恰好是包含若干个组件选项的对象，因此我们可以将 CommonComponents 的子属性作为参数用于 resolve 调用，我们编写一个函数 getCommonComponent，用于根据组件名称获取相应的组件选项。
 
 ```javascript
 let getCommonComponent = componentName => resolve => require(['components/CommonComponents'], components => resolve(components[componentName]))
