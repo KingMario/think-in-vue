@@ -1,0 +1,8 @@
+.DS_Store
+.idea/
+node_modules/
+dist/
+coverage/
+reports/
+npm-debug.log
+selenium-debug.log
