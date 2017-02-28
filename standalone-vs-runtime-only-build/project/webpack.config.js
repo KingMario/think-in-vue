@@ -5,7 +5,7 @@ var name = require('./package').name
 module.exports = {
   entry: path.resolve(__dirname, 'index.js'),
   output: {
-    path: path.resolve(__dirname, `../../docs/${name}/1`),
+    path: path.resolve(__dirname, `../../docs/${name}/2`),
     publicPath: '',
     filename: 'index.js'
   },
