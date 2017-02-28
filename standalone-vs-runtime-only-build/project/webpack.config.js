@@ -5,12 +5,15 @@ var name = require('./package').name
 module.exports = {
   entry: path.resolve(__dirname, 'index.js'),
   output: {
-    path: path.resolve(__dirname, `../../docs/${name}/0`),
+    path: path.resolve(__dirname, `../../docs/${name}/1`),
     publicPath: '',
     filename: 'index.js'
   },
   resolve: {
-    extensions: ['.js', '.vue']
+    extensions: ['.js', '.vue'],
+    alias: {
+      'vue$': 'vue/dist/vue.common.js'
+    }
   },
   module: {
     loaders: [
